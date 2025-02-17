@@ -20,9 +20,22 @@ public class Operations {
         String num3Type = whichNumberSystem(args[2]);
 
         System.out.println("Task 2");
+
         System.out.println(args[0] +  "=" + num1Type);
         System.out.println(args[1] +  "=" + num2Type);
         System.out.println(args[2] +  "=" + num3Type);
+
+        System.out.println("Task 3");
+        
+        System.out.println(args[0] + "=" + isValidNumber(args[0], num1Type));
+        System.out.println(args[0] + "=" + isValidNumber(args[1], num2Type));
+        System.out.println(args[0] + "=" + isValidNumber(args[3], num3Type));
+
+
+        if(isValidNumber(args[0], num1Type) == false || isValidNumber(args[1], num2Type) == false || isValidNumber(args[2], num3Type) == false) {
+            return;
+        }
+
             
         
     }
@@ -39,4 +52,60 @@ public class Operations {
     }
 
 
+    public static boolean validateBinary(String number)
+    {
+        for (int i = 0; i < number.length(); ++i)
+        {
+            char c = number.charAt(i);
+
+            if (c < '0' || c > '1'){ 
+                return false; 
+            }
+            
+        }
+        return true;
+    }
+
+    public static boolean validateDecimal(String number)
+    {   
+        
+        for (int i = 0; i < number.length(); i++)
+        {
+            char c = number.charAt(i);
+
+            if (c < '0' || c > '9'){ 
+                return false; 
+            }
+            
+        }
+        return true;
+    }
+
+    public static boolean validateHexadecimal(String number)
+    {
+        for (int i = 0; i < number.length(); ++i)
+        {
+            char c = number.charAt(i);
+
+            if ((c < '0' || c > '9') && (c < 'A' || c > 'F') && (c < 'a' || c > 'f')){
+                return false;
+            }
+            
+        }
+        return true;
+    }
+
+    public static boolean isValidNumber(String number, String type) {
+        if(type.equals("Binary")) {
+            return validateBinary(number);
+        }
+        if(type.equals("Decimal")) {
+            return validateDecimal(number);
+        }
+        if(type.equals("Hexadecimal")) {
+            return validateHexadecimal(number);
+        }
+        return false;
+
+    }
 }
