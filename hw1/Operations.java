@@ -14,5 +14,13 @@ public class Operations {
                 System.out.println("Incorrect number of arguments have been provided. Program Terminating!");
                 return;
             }
+            
+        
     }
+    public static String whichNumberSystem(String number)
+    {
+        if number.startsWith(0b)
+    }
+
+
 }
