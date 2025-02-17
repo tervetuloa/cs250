@@ -54,6 +54,7 @@ public class Operations {
 
     public static boolean validateBinary(String number)
     {
+        number = number.substring(2);
         for (int i = 0; i < number.length(); ++i)
         {
             char c = number.charAt(i);
@@ -83,6 +84,7 @@ public class Operations {
 
     public static boolean validateHexadecimal(String number)
     {
+        number = number.substring(2);
         for (int i = 0; i < number.length(); ++i)
         {
             char c = number.charAt(i);
