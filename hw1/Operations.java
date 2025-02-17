@@ -17,7 +17,7 @@ public class Operations {
         
         String num1Type = whichNumberSystem(args[0]);
         String num2Type = whichNumberSystem(args[1]);
-        String num3Type = whichNumberSystem(args[3]);
+        String num3Type = whichNumberSystem(args[2]);
 
         System.out.println("Task 2");
         System.out.println(args[0] +  "=" + num1Type);
