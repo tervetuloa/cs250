@@ -13,12 +13,13 @@ public class Operations {
                 System.out.println("Incorrect number of arguments have been provided. Program Terminating!");
                 return;
             }
-        System.out.println("Task 2");
+        
         
         String num1Type = whichNumberSystem(args[0]);
         String num2Type = whichNumberSystem(args[1]);
         String num3Type = whichNumberSystem(args[3]);
 
+        System.out.println("Task 2");
         System.out.println(args[0] +  "=" + num1Type);
         System.out.println(args[1] +  "=" + num2Type);
         System.out.println(args[2] +  "=" + num3Type);
