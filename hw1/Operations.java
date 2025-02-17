@@ -29,7 +29,7 @@ public class Operations {
         
         System.out.println(args[0] + "=" + isValidNumber(args[0], num1Type));
         System.out.println(args[0] + "=" + isValidNumber(args[1], num2Type));
-        System.out.println(args[0] + "=" + isValidNumber(args[3], num3Type));
+        System.out.println(args[0] + "=" + isValidNumber(args[2], num3Type));
 
 
         if(isValidNumber(args[0], num1Type) == false || isValidNumber(args[1], num2Type) == false || isValidNumber(args[2], num3Type) == false) {
