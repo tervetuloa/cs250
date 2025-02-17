@@ -28,8 +28,8 @@ public class Operations {
         System.out.println("Task 3");
         
         System.out.println(args[0] + "=" + isValidNumber(args[0], num1Type));
-        System.out.println(args[0] + "=" + isValidNumber(args[1], num2Type));
-        System.out.println(args[0] + "=" + isValidNumber(args[2], num3Type));
+        System.out.println(args[1] + "=" + isValidNumber(args[1], num2Type));
+        System.out.println(args[2] + "=" + isValidNumber(args[2], num3Type));
 
 
         if(isValidNumber(args[0], num1Type) == false || isValidNumber(args[1], num2Type) == false || isValidNumber(args[2], num3Type) == false) {
@@ -54,6 +54,9 @@ public class Operations {
 
     public static boolean validateBinary(String number)
     {
+        if (number.length() <= 2) {
+            return false;
+        }
         number = number.substring(2);
         for (int i = 0; i < number.length(); ++i)
         {
@@ -69,7 +72,9 @@ public class Operations {
 
     public static boolean validateDecimal(String number)
     {   
-        
+        if (number.length() == 0) {
+            return false;
+        }
         for (int i = 0; i < number.length(); i++)
         {
             char c = number.charAt(i);
@@ -84,6 +89,9 @@ public class Operations {
 
     public static boolean validateHexadecimal(String number)
     {
+        if (number.length() <= 2) {
+            return false;
+        }
         number = number.substring(2);
         for (int i = 0; i < number.length(); ++i)
         {
