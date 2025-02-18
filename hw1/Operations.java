@@ -31,6 +31,13 @@ public class Operations {
         System.out.println(args[1] + "=" + isValidNumber(args[1], num2Type));
         System.out.println(args[2] + "=" + isValidNumber(args[2], num3Type));
 
+        System.out.println("Task 4");
+
+        System.out.println("Start=" + args[0] +",Binary=" + convertToBinary(args[0]) + ",Decimal=" + convertToDecimal(args[0]) + ",Hexadecimal=" + convertToHex(args[0]));
+        System.out.println("Start=" + args[1] +",Binary=" + convertToBinary(args[1]) + ",Decimal=" + convertToDecimal(args[1]) + ",Hexadecimal=" + convertToHex(args[1]));
+        System.out.println("Start=" + args[2] +",Binary=" + convertToBinary(args[2]) + ",Decimal=" + convertToDecimal(args[2]) + ",Hexadecimal=" + convertToHex(args[2]));
+
+
 
         if(isValidNumber(args[0], num1Type) == false || isValidNumber(args[1], num2Type) == false || isValidNumber(args[2], num3Type) == false) {
             return;
@@ -118,4 +125,141 @@ public class Operations {
         return false;
 
     }
+
+    public static String convertToBinary(String number)
+    {
+        if (number.startsWith("0b")) {
+            return number;
+
+        }
+
+        else if (number.startsWith("0x")) {
+            String hexDec = convertToDecimal(number);
+            String result = "";
+            int temp = 0;
+            
+            for (int i = Integer.parseInt(hexDec); i > 0; i/=2) {
+                temp = i % 2;
+                result = temp + result;
+            }
+            return "0b" + result;
+        }
+
+        else {
+            String result = "";
+            int temp = 0;
+
+            for (int i = Integer.parseInt(number); i > 0; i/=2) {
+                temp = i % 2;
+                result = temp + result;
+            }
+            return "0b" + result;
+        }
+    }
+        public static String convertToDecimal(String number) {
+        if (number.startsWith("0b")) {
+
+            number = number.substring(2);
+
+            
+
+            int result = 0;
+            int power = 0;
+
+            for(int i = number.length()-1; i >= 0; --i) {
+                int digit = number.charAt(i) - '0';
+                
+                result += digit * Math.pow(2, power);
+
+                
+                ++power;
+            }
+
+            return Integer.toString(result);
+
+        }
+        
+        else if (number.startsWith("0x")) {
+            number = number.substring(2);
+
+            
+
+            int result = 0;
+            int power = 0;
+
+            for(int i = number.length()-1; i >= 0; --i) {
+                char charDigit = number.charAt(i);
+                int digit;
+
+                if(charDigit >= '0' && charDigit <= '9'){
+                    digit = charDigit - '0';
+                }
+                else if(charDigit >= 'A' && charDigit <= 'F'){
+                    digit = 10 + (charDigit - 'A');
+                }
+                else {
+                    digit = 10 +(charDigit - 'a');
+                }
+
+                
+                result += digit * Math.pow(16, power);
+
+                
+                ++power;
+            }
+            return Integer.toString(result);
+        }
+
+        else {
+            
+            return number;
+        }
+    }
+
+    public static String convertToHex(String number) {
+        if (number.startsWith("0b")) {
+            String decimal = convertToDecimal(number);
+
+            String result = "";
+            int temp = 0;
+            String tempString;
+            char[] hexLetters = {'A', 'B', 'C', 'D', 'E', 'F'};
+            for (int i = Integer.parseInt(decimal); i > 0; i/=16) {
+                temp = i % 16;
+                if (temp < 10) {
+                tempString = Integer.toString(temp); 
+                result = temp + result; 
+                }
+                else {
+                    result = hexLetters[temp - 10] + result;
+                    }
+            }
+            return "0x" + result;
+            
+        }
+        
+        else if (number.startsWith("0x")) {
+            return number;
+        }
+
+        else {
+            String result = "";
+            int temp = 0;
+            String tempString;
+            char[] hexLetters = {'A', 'B', 'C', 'D', 'E', 'F'};
+            for (int i = Integer.parseInt(number); i > 0; i/=16) {
+                temp = i % 16;
+                if (temp < 10) {
+                tempString = Integer.toString(temp); 
+                result = temp + result; 
+                }
+                else {
+                    result = hexLetters[temp - 10] + result;
+                    }
+            }
+            return "0x" + result;
+        }
+        
+    }
 }
+
