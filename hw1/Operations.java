@@ -37,6 +37,12 @@ public class Operations {
         System.out.println("Start=" + args[1] +",Binary=" + convertToBinary(args[1]) + ",Decimal=" + convertToDecimal(args[1]) + ",Hexadecimal=" + convertToHex(args[1]));
         System.out.println("Start=" + args[2] +",Binary=" + convertToBinary(args[2]) + ",Decimal=" + convertToDecimal(args[2]) + ",Hexadecimal=" + convertToHex(args[2]));
 
+        System.out.println("Task 5");
+
+        System.out.println(args[0] + "=" + convertToBinary(args[0]).substring(2) + "=>" + onesCompliment(args[0]));
+        System.out.println(args[1] + "=" + convertToBinary(args[1]).substring(2) + "=>" + onesCompliment(args[1]));
+        System.out.println(args[2] + "=" + convertToBinary(args[2]).substring(2) + "=>" + onesCompliment(args[2]));
+
 
 
         if(isValidNumber(args[0], num1Type) == false || isValidNumber(args[1], num2Type) == false || isValidNumber(args[2], num3Type) == false) {
@@ -289,5 +295,21 @@ public static String convertToHex(String number) {
         return result;
     }
     
+    public static String onesCompliment(String number) {
+        number = convertToBinary(number).substring(2);
+        String result = "";
+
+        for(int i = 0; i < number.length(); i++) {
+            if (number.charAt(i) == '0')
+            {
+                result += "1";
+            }
+            else {
+                result += "0";
+            }
+        }
+        return result;
+
+    }
 }
 
