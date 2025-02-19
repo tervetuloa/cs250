@@ -125,6 +125,7 @@ public class Operations {
         return false;
 
     }
+//conversion methodsss
 
     public static String convertToBinary(String number)
     {
@@ -137,8 +138,8 @@ public class Operations {
             String hexDec = convertToDecimal(number);
             String result = "";
             int temp = 0;
-            
-            for (int i = Integer.parseInt(hexDec); i > 0; i/=2) {
+            int decimalValue = stringToInt(hexDec);
+            for (int i = (decimalValue); i > 0; i/=2) {
                 temp = i % 2;
                 result = temp + result;
             }
@@ -148,8 +149,8 @@ public class Operations {
         else {
             String result = "";
             int temp = 0;
-
-            for (int i = Integer.parseInt(number); i > 0; i/=2) {
+            int decimalValue = stringToInt(number);
+            for (int i = stringToInt(number); i > 0; i/=2) {
                 temp = i % 2;
                 result = temp + result;
             }
@@ -175,7 +176,7 @@ public class Operations {
                 ++power;
             }
 
-            return Integer.toString(result);
+            return intToString(result);
 
         }
         
@@ -207,7 +208,7 @@ public class Operations {
                 
                 ++power;
             }
-            return Integer.toString(result);
+            return intToString(result);
         }
 
         else {
@@ -222,12 +223,11 @@ public class Operations {
 
             String result = "";
             int temp = 0;
-            String tempString;
+            
             char[] hexLetters = {'A', 'B', 'C', 'D', 'E', 'F'};
-            for (int i = Integer.parseInt(decimal); i > 0; i/=16) {
+            for (int i = stringToInt(decimal); i > 0; i/=16) {
                 temp = i % 16;
                 if (temp < 10) {
-                tempString = Integer.toString(temp); 
                 result = temp + result; 
                 }
                 else {
@@ -245,12 +245,10 @@ public class Operations {
         else {
             String result = "";
             int temp = 0;
-            String tempString;
             char[] hexLetters = {'A', 'B', 'C', 'D', 'E', 'F'};
-            for (int i = Integer.parseInt(number); i > 0; i/=16) {
+            for (int i = stringToInt(number); i > 0; i/=16) {
                 temp = i % 16;
                 if (temp < 10) {
-                tempString = Integer.toString(temp); 
                 result = temp + result; 
                 }
                 else {
@@ -261,5 +259,36 @@ public class Operations {
         }
         
     }
+
+
+    //parsing methods because yeahhhhhhhhhhh
+
+    public static String intToString(int bruh) {
+        if (bruh == 0) {
+            return "0";
+        }
+
+        String result = "";
+        while (bruh > 0) {
+            int digit = bruh % 10;
+            result = (char)('0' + digit) + result;
+            bruh /= 10;
+        }
+
+        return result;
+
+    }
+
+    public static int stringToInt(String bruh) {
+        int result = 0;
+        for (int i = 0; i < bruh.length(); i++) {
+            char chr = bruh.charAt(i);
+            int digit = chr - '0';
+            result = result * 10 + digit;
+        }
+
+        return result;
+    }
+    
 }
 
