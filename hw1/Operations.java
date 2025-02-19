@@ -217,48 +217,47 @@ public class Operations {
         }
     }
 
-    public static String convertToHex(String number) {
-        if (number.startsWith("0b")) {
-            String decimal = convertToDecimal(number);
-
-            String result = "";
-            int temp = 0;
-            
-            char[] hexLetters = {'A', 'B', 'C', 'D', 'E', 'F'};
-            for (int i = stringToInt(decimal); i > 0; i/=16) {
-                temp = i % 16;
-                if (temp < 10) {
-                result = temp + result; 
-                }
-                else {
-                    result = hexLetters[temp - 10] + result;
-                    }
-            }
-            return "0x" + result;
-            
-        }
+public static String convertToHex(String number) {
+    if (number.startsWith("0b")) {
         
-        else if (number.startsWith("0x")) {
-            return number;
-        }
+        String decimal = convertToDecimal(number);
+        int decimalValue = stringToInt(decimal);
 
-        else {
-            String result = "";
-            int temp = 0;
-            char[] hexLetters = {'A', 'B', 'C', 'D', 'E', 'F'};
-            for (int i = stringToInt(number); i > 0; i/=16) {
-                temp = i % 16;
-                if (temp < 10) {
-                result = temp + result; 
-                }
-                else {
-                    result = hexLetters[temp - 10] + result;
-                    }
-            }
-            return "0x" + result;
-        }
         
+        String result = "";
+        int temp = 0;
+        char[] hexLetters = {'A', 'B', 'C', 'D', 'E', 'F'};
+        for (int i = decimalValue; i > 0; i /= 16) {
+            temp = i % 16;
+            if (temp < 10) {
+                result = temp + result;
+            } 
+            else {
+                result = hexLetters[temp - 10] + result;
+            }
+        }
+        return "0x" + result;
+    } 
+    else if (number.startsWith("0x")) {
+        return number;
+    } 
+    else {
+        int decimalValue = stringToInt(number);
+        String result = "";
+        int temp = 0;
+        char[] hexLetters = {'A', 'B', 'C', 'D', 'E', 'F'};
+        for (int i = decimalValue; i > 0; i /= 16) {
+            temp = i % 16;
+            if (temp < 10) {
+                result = temp + result;
+            } 
+            else {
+                result = hexLetters[temp - 10] + result;
+            }
+        }
+        return "0x" + result;
     }
+}
 
 
     //parsing methods because yeahhhhhhhhhhh
