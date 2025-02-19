@@ -43,6 +43,11 @@ public class Operations {
         System.out.println(args[1] + "=" + convertToBinary(args[1]).substring(2) + "=>" + onesCompliment(args[1]));
         System.out.println(args[2] + "=" + convertToBinary(args[2]).substring(2) + "=>" + onesCompliment(args[2]));
 
+        System.out.print("Task 6");
+
+        System.out.println(args[0] + "=" + convertToBinary(args[0]).substring(2) + "=>" + twosCompliment(args[0]));
+        System.out.println(args[1] + "=" + convertToBinary(args[1]).substring(2) + "=>" + twosCompliment(args[1]));
+        System.out.println(args[2] + "=" + convertToBinary(args[2]).substring(2) + "=>" + twosCompliment(args[2]));
 
 
         if(isValidNumber(args[0], num1Type) == false || isValidNumber(args[1], num2Type) == false || isValidNumber(args[2], num3Type) == false) {
@@ -309,6 +314,29 @@ public static String convertToHex(String number) {
             }
         }
         return result;
+
+    }
+
+    public static String twosCompliment(String number) {
+        String ones = onesCompliment(number);
+
+        char[] twos = ones.toCharArray();
+        int flag = ones.length()-1;
+
+        while(flag >= 0) {
+            if(twos[flag] == '0') {
+                twos[flag] = '1';
+                break;
+            }
+            else {
+                twos[flag] = '0';
+            }
+            flag--;
+            
+        }
+        return new String(twos);
+
+
 
     }
 }
