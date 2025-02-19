@@ -226,7 +226,7 @@ public static String convertToHex(String number) {
         
         String result = "";
         int temp = 0;
-        char[] hexLetters = {'A', 'B', 'C', 'D', 'E', 'F'};
+        char[] hexLetters = {'a', 'b', 'c', 'd', 'e', 'f'};
         for (int i = decimalValue; i > 0; i /= 16) {
             temp = i % 16;
             if (temp < 10) {
@@ -245,7 +245,7 @@ public static String convertToHex(String number) {
         int decimalValue = stringToInt(number);
         String result = "";
         int temp = 0;
-        char[] hexLetters = {'A', 'B', 'C', 'D', 'E', 'F'};
+        char[] hexLetters = {'a', 'b', 'c', 'd', 'e', 'f'};
         for (int i = decimalValue; i > 0; i /= 16) {
             temp = i % 16;
             if (temp < 10) {
