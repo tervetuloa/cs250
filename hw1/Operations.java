@@ -49,6 +49,11 @@ public class Operations {
         System.out.println(args[1] + "=" + convertToBinary(args[1]).substring(2) + "=>" + twosCompliment(args[1]));
         System.out.println(args[2] + "=" + convertToBinary(args[2]).substring(2) + "=>" + twosCompliment(args[2]));
 
+        System.out.println("Task 6");
+
+        System.out.println(convertToBinary(args[0]).substring(2) + "|" + convertToBinary(args[1]).substring(2) + "|" + convertToBinary(args[2]).substring(2) + "=" + binaryOr(args[0], args[1], args[2]));
+        System.out.println(convertToBinary(args[0]).substring(2) + "&" + convertToBinary(args[1]).substring(2) + "&" + convertToBinary(args[2]).substring(2) + "=" + binaryAnd(args[0], args[1], args[2]));
+        System.out.println(convertToBinary(args[0]).substring(2) + "^" + convertToBinary(args[1]).substring(2) + "^" + convertToBinary(args[2]).substring(2) + "=" + BinaryXOr(args[0], args[1], args[2]));
 
         if(isValidNumber(args[0], num1Type) == false || isValidNumber(args[1], num2Type) == false || isValidNumber(args[2], num3Type) == false) {
             return;
@@ -335,9 +340,214 @@ public static String convertToHex(String number) {
             
         }
         return new String(twos);
+    }
 
+    public static String binaryOr(String number1, String number2, String number3) {
+        
+        number1 = number1.substring(2);
+        number2 = number2.substring(2);
+        number3 = number3.substring(2);
+
+        String result ="";
+        
+        if (number1.length() >= number2.length() && number1.length() >= number3.length()) {
+
+            
+            
+            while (number2.length() < number1.length()) {
+                number2 = "0" + number2;
+            }
+            while (number3.length() < number1.length()) {
+                number3 = "0" + number3;
+            }
+
+        }
+
+        else if (number2.length() >= number1.length() && number2.length() >= number3.length()) {
+
+           
+            
+            while (number1.length() < number2.length()) {
+                number1 = "0" + number1;
+            }
+
+            while (number3.length() < number2.length()) {
+                number3 = "0" + number3;
+            }
+
+
+
+        }
+
+        else {
+        
+            
+            while (number1.length() < number3.length()) {
+                number1 = "0" + number1;
+            }
+
+            while (number2.length() < number3.length()) {
+                number2 = "0" + number2;
+            }
+
+
+
+        }
+
+
+        for (int i = 0; i < number1.length(); i++) {
+            if (number1.charAt(i) == '1' || number2.charAt(i) == '1' || number3.charAt(i) == '1') {
+                result += 1;
+            }
+            else {
+                result += 0;
+            }
+        }
+        return result;
 
 
     }
+
+
+    public static String binaryAnd(String number1, String number2, String number3) {
+        
+        number1 = number1.substring(2);
+        number2 = number2.substring(2);
+        number3 = number3.substring(2);
+
+        String result ="";
+        
+        if (number1.length() >= number2.length() && number1.length() >= number3.length()) {
+
+            
+            
+            while (number2.length() < number1.length()) {
+                number2 = "0" + number2;
+            }
+            while (number3.length() < number1.length()) {
+                number3 = "0" + number3;
+            }
+
+        }
+
+        else if (number2.length() >= number1.length() && number2.length() >= number3.length()) {
+
+           
+            
+            while (number1.length() < number2.length()) {
+                number1 = "0" + number1;
+            }
+
+            while (number3.length() < number2.length()) {
+                number3 = "0" + number3;
+            }
+
+
+
+        }
+
+        else {
+        
+            
+            while (number1.length() < number3.length()) {
+                number1 = "0" + number1;
+            }
+
+            while (number2.length() < number3.length()) {
+                number2 = "0" + number2;
+            }
+
+
+
+        }
+
+
+        for (int i = 0; i < number1.length(); i++) {
+            if (number1.charAt(i) == '1' && number2.charAt(i) == '1' && number3.charAt(i) == '1') {
+                result += 1;
+            }
+            else {
+                result += 0;
+            }
+        }
+        return result;
+
+
+    }
+
+    public static String BinaryXOr(String number1, String number2, String number3) {
+        
+        number1 = number1.substring(2);
+        number2 = number2.substring(2);
+        number3 = number3.substring(2);
+
+        String result ="";
+        
+        if (number1.length() >= number2.length() && number1.length() >= number3.length()) {
+
+            
+            
+            while (number2.length() < number1.length()) {
+                number2 = "0" + number2;
+            }
+            while (number3.length() < number1.length()) {
+                number3 = "0" + number3;
+            }
+
+        }
+
+        else if (number2.length() >= number1.length() && number2.length() >= number3.length()) {
+
+           
+            
+            while (number1.length() < number2.length()) {
+                number1 = "0" + number1;
+            }
+
+            while (number3.length() < number2.length()) {
+                number3 = "0" + number3;
+            }
+
+
+
+        }
+
+        else {
+        
+            
+            while (number1.length() < number3.length()) {
+                number1 = "0" + number1;
+            }
+
+            while (number2.length() < number3.length()) {
+                number2 = "0" + number2;
+            }
+
+
+
+        }
+
+
+        for (int i = 0; i < number1.length(); i++) {
+            int acc = 0;
+            if (number1.charAt(i) == '1') acc++;
+            if (number2.charAt(i) == '1') acc++;
+            if (number3.charAt(i) == '1') acc++;
+
+            if(acc % 2 == 1) {
+                result += '1';
+            }
+
+            else {
+                result += '0';
+            }
+          
+        }
+        return result;
+
+
+    }
+
+    
 }
 
