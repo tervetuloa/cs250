@@ -55,6 +55,12 @@ public class Operations {
         System.out.println(convertToBinary(args[0]).substring(2) + "&" + convertToBinary(args[1]).substring(2) + "&" + convertToBinary(args[2]).substring(2) + "=" + binaryAnd(args[0], args[1], args[2]));
         System.out.println(convertToBinary(args[0]).substring(2) + "^" + convertToBinary(args[1]).substring(2) + "^" + convertToBinary(args[2]).substring(2) + "=" + BinaryXOr(args[0], args[1], args[2]));
 
+        System.out.println("Task 8");
+
+        System.out.println(convertToBinary(args[0]).substring(2) + "<<2=" + leftShift(args[0]) + "," + convertToBinary(args[0]).substring(2) + ">>2=" + rightShift(args[0]));
+        System.out.println(convertToBinary(args[1]).substring(2) + "<<2=" + leftShift(args[1]) + "," + convertToBinary(args[1]).substring(2) + ">>2=" + rightShift(args[1]));
+        System.out.println(convertToBinary(args[2]).substring(2) + "<<2=" + leftShift(args[2]) + "," + convertToBinary(args[2]).substring(2) + ">>2=" + rightShift(args[2]));
+
         if(isValidNumber(args[0], num1Type) == false || isValidNumber(args[1], num2Type) == false || isValidNumber(args[2], num3Type) == false) {
             return;
         }
@@ -564,10 +570,29 @@ public static String convertToHex(String number) {
     }
 
     public static String leftShift(String number) {
+        number = convertToBinary(number);
+
+        number = number.substring(2);
+
+
         
         
+        return number + "00";
+    }
+
+    public static String rightShift(String number) 
+    {
+        number = convertToBinary(number);
+
+        number = number.substring(2);
+
+        String result = "";
         
-        return number;
+        for(int i = 0; i < number.length()-2; i++) {
+            result += number.charAt(i);
+        }
+
+        return result;
     }
 
     
