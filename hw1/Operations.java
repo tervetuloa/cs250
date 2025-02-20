@@ -43,13 +43,13 @@ public class Operations {
         System.out.println(args[1] + "=" + convertToBinary(args[1]).substring(2) + "=>" + onesCompliment(args[1]));
         System.out.println(args[2] + "=" + convertToBinary(args[2]).substring(2) + "=>" + onesCompliment(args[2]));
 
-        System.out.print("Task 6");
+        System.out.println("Task 6");
 
         System.out.println(args[0] + "=" + convertToBinary(args[0]).substring(2) + "=>" + twosCompliment(args[0]));
         System.out.println(args[1] + "=" + convertToBinary(args[1]).substring(2) + "=>" + twosCompliment(args[1]));
         System.out.println(args[2] + "=" + convertToBinary(args[2]).substring(2) + "=>" + twosCompliment(args[2]));
 
-        System.out.println("Task 6");
+        System.out.println("Task 7");
 
         System.out.println(convertToBinary(args[0]).substring(2) + "|" + convertToBinary(args[1]).substring(2) + "|" + convertToBinary(args[2]).substring(2) + "=" + binaryOr(args[0], args[1], args[2]));
         System.out.println(convertToBinary(args[0]).substring(2) + "&" + convertToBinary(args[1]).substring(2) + "&" + convertToBinary(args[2]).substring(2) + "=" + binaryAnd(args[0], args[1], args[2]));
@@ -564,6 +564,9 @@ public static String convertToHex(String number) {
     }
 
     public static String leftShift(String number) {
+        
+        
+        
         return number;
     }
 
