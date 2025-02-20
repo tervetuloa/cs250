@@ -343,7 +343,12 @@ public static String convertToHex(String number) {
     }
 
     public static String binaryOr(String number1, String number2, String number3) {
-        
+        number1 = convertToBinary(number1);
+        number2 = convertToBinary(number2);
+        number3 = convertToBinary(number3);
+
+
+
         number1 = number1.substring(2);
         number2 = number2.substring(2);
         number3 = number3.substring(2);
@@ -410,7 +415,12 @@ public static String convertToHex(String number) {
 
 
     public static String binaryAnd(String number1, String number2, String number3) {
-        
+        number1 = convertToBinary(number1);
+        number2 = convertToBinary(number2);
+        number3 = convertToBinary(number3);
+
+
+
         number1 = number1.substring(2);
         number2 = number2.substring(2);
         number3 = number3.substring(2);
@@ -477,6 +487,11 @@ public static String convertToHex(String number) {
 
     public static String BinaryXOr(String number1, String number2, String number3) {
         
+        number1 = convertToBinary(number1);
+        number2 = convertToBinary(number2);
+        number3 = convertToBinary(number3);
+
+
         number1 = number1.substring(2);
         number2 = number2.substring(2);
         number3 = number3.substring(2);
@@ -546,6 +561,10 @@ public static String convertToHex(String number) {
         return result;
 
 
+    }
+
+    public static String leftShift(String number) {
+        return number;
     }
 
     
