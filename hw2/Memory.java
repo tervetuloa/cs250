@@ -40,7 +40,7 @@ public class Memory {
 
         
 
-                Integer[] array = new Integer[size];
+        Integer[] array = new Integer[size];
         Random random = new Random(seed);
         for (int i = 0; i < size; i++) {
             array[i] = random.nextInt();
@@ -51,6 +51,7 @@ public class Memory {
         long sum = 0;
 
         for (int i = 0; i < experiments; i++) {
+            
             int knownIndex = random.nextInt(size / 10); 
             long startTime = System.nanoTime();
             int knownElement = array[knownIndex];
@@ -58,7 +59,8 @@ public class Memory {
             timeKnown += (endTime - startTime);
             sum += knownElement;
 
-            int randomIndex = size - 1 - random.nextInt(size / 10);
+            
+            int randomIndex = size - 1 - random.nextInt(size / 10); 
             startTime = System.nanoTime();
             int randomElement = array[randomIndex];
             endTime = System.nanoTime();
