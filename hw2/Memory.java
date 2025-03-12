@@ -60,7 +60,7 @@ public class Memory {
             sum += knownElement;
 
             
-            int randomIndex = size - 1 - random.nextInt(size / 10); 
+            int randomIndex = size - (size / 10) + random.nextInt(size / 10); 
             startTime = System.nanoTime();
             int randomElement = array[randomIndex];
             endTime = System.nanoTime();
