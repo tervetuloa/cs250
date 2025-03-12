@@ -116,8 +116,8 @@ public class Memory {
 
         //Task 3 output
         System.out.println("Task 3");
-        System.out.printf("TreeSet time: %.2f nanoseconds%n", avgTreeSetTime);
-        System.out.printf("LinkedList time: %.2f nanoseconds%n", avgLinkedListTime);
+        System.out.printf("Avg time to find in set: %.2f nanoseconds%n", avgTreeSetTime);
+        System.out.printf("Avg time to find in list: %.2f nanoseconds%n", avgLinkedListTime);
     }
 
 
