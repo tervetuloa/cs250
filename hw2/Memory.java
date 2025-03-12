@@ -62,6 +62,8 @@ public class Memory {
         
 
             int randomIndex= size - 1 - random.nextInt(size/10);
+
+            startTime = System.nanoTime();
             int randomElement = array[randomIndex];
             endTime = System.nanoTime();
             timeRandom += (endTime - startTime);
