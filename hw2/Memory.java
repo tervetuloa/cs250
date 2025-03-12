@@ -62,7 +62,7 @@ public class Memory {
         
 
             int randomIndex= size - 1 - random.nextInt(size/10);
-            int randomElement = array[knownIndex];
+            int randomElement = array[randomIndex];
             endTime = System.nanoTime();
             timeRandom += (endTime - startTime);
             sum+= randomElement;
@@ -84,7 +84,7 @@ public class Memory {
 
 
         // TYask 2 output
-        System.out.println("Task2");
+        System.out.println("Task 2");
         System.out.printf("Avg time to access known element: %.2f nanoseconds%n", avgTimeKnown);
         System.out.printf("Avg time to access random element: %.2f nanoseconds%n", avgTimeRandom);
         System.out.printf("Sum: %.2f%n", (double) sum);
