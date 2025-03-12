@@ -31,7 +31,7 @@ public class Memory {
         }
 
         
-        double avgRegularTime = (regularSum / (double) experiments) / 1_000_000_000.0;
+        double avgRegularTime = (regularTime / (double) experiments) / 1_000_000_000.0;
         double avgVolatileTime = (volatileTime / (double) experiments) / 1_000_000_000.0;
 
         // Output results
