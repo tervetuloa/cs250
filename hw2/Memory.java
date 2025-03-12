@@ -1,6 +1,8 @@
 package cs250.hw2;
 
 import java.util.Random;
+import java.util.TreeSet;
+import java.util.LinkedList;
 
 public class Memory {
 
@@ -67,7 +69,34 @@ public class Memory {
         double avgTimeKnown = (double) timeKnown / experiments;
         double avgTimeRandom = (double) timeRandom / experiments;
 
+        TreeSet<Integer> treeSet = new TreeSet<>();
+        LinkedList<Integer> linkedList = new LinkedList<>();
+        for (int i = 0; i < size; i++) {
+            treeSet.add(i);
+            linkedList.add(i);
+        }
 
+        long treeSetTime = 0;
+        long linkedListTime = 0;
+
+        for (int i = 0; i < experiments; i++) {
+            int randomNumber = random.nextInt(size);
+
+            
+            long startTime = System.nanoTime();
+            treeSet.contains(randomNumber);
+            long endTime = System.nanoTime();
+            treeSetTime += (endTime - startTime);
+
+            
+            startTime = System.nanoTime();
+            linkedList.contains(randomNumber);
+            endTime = System.nanoTime();
+            linkedListTime += (endTime - startTime);
+        }
+
+        double avgTreeSetTime = (double) treeSetTime / experiments;
+        double avgLinkedListTime = (double) linkedListTime / experiments;
 
 
 
@@ -84,6 +113,14 @@ public class Memory {
         System.out.printf("Avg time to access known element: %.2f nanoseconds%n", avgTimeKnown);
         System.out.printf("Avg time to access random element: %.2f nanoseconds%n", avgTimeRandom);
         System.out.printf("Sum: %.2f%n", (double) sum);
+
+        //Task 3 output
+        System.out.println("Task 3");
+        System.out.printf("TreeSet time: %.2f nanoseconds%n", avgTreeSetTime);
+        System.out.printf("LinkedList time: %.2f nanoseconds%n", avgLinkedListTime);
+    }
+
+
 
     }
 
