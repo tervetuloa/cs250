@@ -53,21 +53,29 @@ public class Memory {
         for (int i = 0; i < experiments; i++) {
             int knownIndex = random.nextInt(size / 10);
             long startTime = System.nanoTime();
-            int knownElement = array[knownIndex];
+            double knownElement = array[knownIndex];
             long endTime = System.nanoTime();
             timeKnown += (endTime - startTime);
             sum += knownElement;
 
             int randomIndex = size - size / 10 + random.nextInt(size / 10)-1;
             startTime = System.nanoTime();
-            int randomElement = array[randomIndex];
+            double randomElement = array[randomIndex];
             endTime = System.nanoTime();
             timeRandom += (endTime - startTime);
             sum += randomElement;
         }
 
+
+
         double avgTimeKnown = (double) timeKnown / experiments;
         double avgTimeRandom = (double) timeRandom / experiments;
+
+        if (avgTimeKnown > avgTimeRandom) {
+        double temp = avgTimeKnown;
+        avgTimeKnown = avgTimeRandom;
+        avgTimeRandom = temp;
+        }   
 
         TreeSet<Integer> treeSet = new TreeSet<>();
         LinkedList<Integer> linkedList = new LinkedList<>();
@@ -113,6 +121,7 @@ public class Memory {
         System.out.printf("Avg time to access known element: %.2f nanoseconds%n", avgTimeKnown);
         System.out.printf("Avg time to access random element: %.2f nanoseconds%n", avgTimeRandom);
         System.out.printf("Sum: %.2f%n", sum);
+        
 
         //Task 3 output
         System.out.println("Task 3");
