@@ -51,16 +51,14 @@ public class Memory {
         long sum = 0;
 
         for (int i = 0; i < experiments; i++) {
-            
-            int knownIndex = random.nextInt(size / 10); 
+            int knownIndex = random.nextInt(size / 10);
             long startTime = System.nanoTime();
             int knownElement = array[knownIndex];
             long endTime = System.nanoTime();
             timeKnown += (endTime - startTime);
             sum += knownElement;
 
-            
-            int randomIndex = size - (size / 10) + random.nextInt(size / 10) - 1; 
+            int randomIndex = size - size / 10 + random.nextInt(size / 10);
             startTime = System.nanoTime();
             int randomElement = array[randomIndex];
             endTime = System.nanoTime();
@@ -114,7 +112,7 @@ public class Memory {
         System.out.println("Task 2");
         System.out.printf("Avg time to access known element: %.2f nanoseconds%n", avgTimeKnown);
         System.out.printf("Avg time to access random element: %.2f nanoseconds%n", avgTimeRandom);
-        System.out.printf("Sum: %.0f%n", (double) sum);
+        System.out.printf("Sum: %.2f%n", (double) sum);
 
         //Task 3 output
         System.out.println("Task 3");
