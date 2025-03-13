@@ -48,7 +48,7 @@ public class Memory {
 
         long timeKnown = 0;
         long timeRandom = 0;
-        long sum = 0;
+        double sum = 0;
 
         for (int i = 0; i < experiments; i++) {
             int knownIndex = random.nextInt(size / 10);
@@ -112,7 +112,7 @@ public class Memory {
         System.out.println("Task 2");
         System.out.printf("Avg time to access known element: %.2f nanoseconds%n", avgTimeKnown);
         System.out.printf("Avg time to access random element: %.2f nanoseconds%n", avgTimeRandom);
-        System.out.printf("Sum: %d%n", sum);
+        System.out.printf("Sum: %.2f%n", sum);
 
         //Task 3 output
         System.out.println("Task 3");
