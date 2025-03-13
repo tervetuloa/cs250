@@ -64,6 +64,8 @@ public class Memory {
             endTime = System.nanoTime();
             timeRandom += (endTime - startTime);
             sum += randomElement;
+
+            
         }
 
 
@@ -71,11 +73,6 @@ public class Memory {
         double avgTimeKnown = (double) timeKnown / experiments;
         double avgTimeRandom = (double) timeRandom / experiments;
 
-        if (avgTimeKnown > avgTimeRandom) {
-        double temp = avgTimeKnown;
-        avgTimeKnown = avgTimeRandom;
-        avgTimeRandom = temp;
-        }   
 
         TreeSet<Integer> treeSet = new TreeSet<>();
         LinkedList<Integer> linkedList = new LinkedList<>();
