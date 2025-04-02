@@ -57,7 +57,7 @@ public class TCPClient {
             System.out.println("Sum of messages sent: " + senderSum);
 
             
-            in.close();
+            in.close()
             out.close();
             socket.close();
 
