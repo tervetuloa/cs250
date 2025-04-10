@@ -76,6 +76,7 @@ public class TCPServer {
             System.out.println(client2Host + " " + seed2);
             
             System.out.println("Finished sending config to clients.");
+            System.out.println("Starting to listen for client messages...");
 
             long[] sums = {0, 0};
             int[] counts = {0, 0};
@@ -111,6 +112,7 @@ public class TCPServer {
             t1.join();
             t2.join();
 
+            System.out.println("Finished listening for client messages.");
             System.out.println(client1Host);
             System.out.println("\tMessages received: " + counts[1]);
             System.out.println("\tSum received: " + sums[1]);
