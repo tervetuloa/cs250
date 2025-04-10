@@ -114,11 +114,11 @@ public class TCPServer {
 
             System.out.println("Finished listening for client messages.");
             System.out.println(client1Host);
-            System.out.println("\tMessages received: " + counts[1]);
-            System.out.println("\tSum received: " + sums[1]);
+            System.out.println("        Messages received: " + counts[1]);
+            System.out.println("        Sum received: " + sums[1]);
             System.out.println(client2Host);
-            System.out.println("\tMessages received: " + counts[0]);
-            System.out.println("\tSum received: " + sums[0]);
+            System.out.println("        Messages received: " + counts[0]);
+            System.out.println("        Sum received: " + sums[0]);
 
             in1.close();
             out1.close();
