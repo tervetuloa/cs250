@@ -80,7 +80,7 @@ public class BinaryTree implements TreeStructure {
     @Override
     public Long get(Integer num) {
         Node node = get(root, num);
-        return node == null ? null : node.timestamp;
+        return node == null ? -1L : node.timestamp;
     }
 
     private Node get(Node node, Integer num) {

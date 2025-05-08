@@ -95,12 +95,60 @@ public class BTree implements TreeStructure {
                 node.timestamps.remove(idx);
                 return true;
             }
-            return false;
+            
+            Node predecessorChild = node.children.get(idx);
+            if (predecessorChild.keys.size() >= (ORDER/2)) {
+                Integer predecessor = getMax(predecessorChild);
+                Long timestamp = get(predecessor);
+                node.keys.set(idx, predecessor);
+                node.timestamps.set(idx, timestamp);
+                return remove(predecessorChild, predecessor);
+            } else {
+                Node successorChild = node.children.get(idx+1);
+                if (successorChild.keys.size() >= (ORDER/2)) {
+                    Integer successor = getMin(successorChild);
+                    Long timestamp = get(successor);
+                    node.keys.set(idx, successor);
+                    node.timestamps.set(idx, timestamp);
+                    return remove(successorChild, successor);
+                } else {
+                    mergeNodes(node, idx);
+                    return remove(predecessorChild, num);
+                }
+            }
         }
         
         if (node.isLeaf()) return false;
         idx = -idx - 1;
         return remove(node.children.get(idx), num);
+    }
+
+    private Integer getMin(Node node) {
+        while (!node.isLeaf()) node = node.children.get(0);
+        return node.keys.get(0);
+    }
+
+    private Integer getMax(Node node) {
+        while (!node.isLeaf()) node = node.children.get(node.children.size() - 1);
+        return node.keys.get(node.keys.size() - 1);
+    }
+
+    private void mergeNodes(Node parent, int idx) {
+        Node left = parent.children.get(idx);
+        Node right = parent.children.get(idx+1);
+        
+        left.keys.add(parent.keys.get(idx));
+        left.timestamps.add(parent.timestamps.get(idx));
+        left.keys.addAll(right.keys);
+        left.timestamps.addAll(right.timestamps);
+        
+        if (!left.isLeaf()) {
+            left.children.addAll(right.children);
+        }
+        
+        parent.keys.remove(idx);
+        parent.timestamps.remove(idx);
+        parent.children.remove(idx+1);
     }
 
     @Override
