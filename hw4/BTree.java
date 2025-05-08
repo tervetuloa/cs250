@@ -7,17 +7,18 @@ import java.util.List;
 public class BTree implements TreeStructure {
     private static final int ORDER = 64;
     private Node root;
-    
+
     private class Node {
         List<Integer> keys = new ArrayList<>();
         List<Long> timestamps = new ArrayList<>();
         List<Node> children = new ArrayList<>();
-        
+
         boolean isLeaf() {
-            return children.size() == 0;
+            return children.isEmpty();
         }
     }
 
+    @Override
     public void insert(Integer num) {
         if (root == null) {
             root = new Node();
@@ -25,69 +26,66 @@ public class BTree implements TreeStructure {
             root.timestamps.add(System.nanoTime());
             return;
         }
-        
-        if (root.keys.size() >= ORDER) {
+
+        if (root.keys.size() == ORDER - 1) {
             Node newRoot = new Node();
             newRoot.children.add(root);
             splitChild(newRoot, 0);
             root = newRoot;
         }
-        
         insertNonFull(root, num, System.nanoTime());
     }
-    
+
     private void insertNonFull(Node node, Integer num, Long timestamp) {
         int i = node.keys.size() - 1;
-        
+
         if (node.isLeaf()) {
-            while (i >= 0 && num < node.keys.get(i)) {
-                i--;
-            }
-            node.keys.add(i+1, num);
-            node.timestamps.add(i+1, timestamp);
+            while (i >= 0 && num < node.keys.get(i)) i--;
+            node.keys.add(i + 1, num);
+            node.timestamps.add(i + 1, timestamp);
         } else {
-            while (i >= 0 && num < node.keys.get(i)) {
-                i--;
-            }
+            while (i >= 0 && num < node.keys.get(i)) i--;
             i++;
             
-            if (node.children.get(i).keys.size() >= ORDER) {
+            if (node.children.get(i).keys.size() == ORDER - 1) {
                 splitChild(node, i);
-                if (num > node.keys.get(i)) {
-                    i++;
-                }
+                if (num > node.keys.get(i)) i++;
             }
-            
             insertNonFull(node.children.get(i), num, timestamp);
         }
     }
-    
+
     private void splitChild(Node parent, int childIndex) {
         Node child = parent.children.get(childIndex);
         Node newChild = new Node();
-        
-        int mid = ORDER / 2;
-        parent.keys.add(childIndex, child.keys.get(mid));
-        parent.timestamps.add(childIndex, child.timestamps.get(mid));
-        
-        newChild.keys.addAll(child.keys.subList(mid+1, child.keys.size()));
-        newChild.timestamps.addAll(child.timestamps.subList(mid+1, child.timestamps.size()));
-        child.keys.subList(mid, child.keys.size()).clear();
-        child.timestamps.subList(mid, child.timestamps.size()).clear();
-        
+
+        int medianIndex = (ORDER - 1) / 2;
+        parent.keys.add(childIndex, child.keys.get(medianIndex));
+        parent.timestamps.add(childIndex, child.timestamps.get(medianIndex));
+
+        newChild.keys.addAll(child.keys.subList(medianIndex + 1, child.keys.size()));
+        newChild.timestamps.addAll(child.timestamps.subList(medianIndex + 1, child.timestamps.size()));
+        child.keys.subList(medianIndex, child.keys.size()).clear();
+        child.timestamps.subList(medianIndex, child.timestamps.size()).clear();
+
         if (!child.isLeaf()) {
-            newChild.children.addAll(child.children.subList(mid+1, child.children.size()));
-            child.children.subList(mid+1, child.children.size()).clear();
+            newChild.children.addAll(child.children.subList(medianIndex + 1, child.children.size()));
+            child.children.subList(medianIndex + 1, child.children.size()).clear();
         }
-        
-        parent.children.add(childIndex+1, newChild);
+
+        parent.children.add(childIndex + 1, newChild);
     }
 
+    @Override
     public Boolean remove(Integer num) {
         if (root == null) return false;
-        return remove(root, num);
+        boolean removed = remove(root, num);
+        if (root.keys.isEmpty() && !root.isLeaf()) {
+            root = root.children.get(0);
+        }
+        return removed;
     }
-    
+
     private boolean remove(Node node, Integer num) {
         int idx = Collections.binarySearch(node.keys, num);
         
@@ -98,36 +96,35 @@ public class BTree implements TreeStructure {
                 return true;
             }
             return false;
-        } else {
-            if (node.isLeaf()) return false;
-            idx = -idx - 1;
-            return remove(node.children.get(idx), num);
         }
+        
+        if (node.isLeaf()) return false;
+        idx = -idx - 1;
+        return remove(node.children.get(idx), num);
     }
 
+    @Override
     public Long get(Integer num) {
-        if (root == null) return null;
         Node current = root;
-        while (true) {
+        while (current != null) {
             int idx = Collections.binarySearch(current.keys, num);
-            if (idx >= 0) {
-                return current.timestamps.get(idx);
-            }
-            if (current.isLeaf()) {
-                return null;
-            }
+            if (idx >= 0) return current.timestamps.get(idx);
+            if (current.isLeaf()) return null;
             current = current.children.get(-idx - 1);
         }
+        return null;
     }
 
+    @Override
     public Integer findMaxDepth() {
         return calculateDepth(root, true);
     }
 
+    @Override
     public Integer findMinDepth() {
         return calculateDepth(root, false);
     }
-    
+
     private Integer calculateDepth(Node node, boolean isMax) {
         if (node == null) return 0;
         if (node.isLeaf()) return 1;
