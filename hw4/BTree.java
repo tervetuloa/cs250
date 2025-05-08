@@ -16,6 +16,10 @@ public class BTree implements TreeStructure {
         boolean isLeaf() {
             return children.isEmpty();
         }
+        
+        boolean isUnderfull() {
+            return keys.size() < (ORDER/2) - 1;
+        }
     }
 
     @Override
@@ -80,7 +84,7 @@ public class BTree implements TreeStructure {
     public Boolean remove(Integer num) {
         if (root == null) return false;
         boolean removed = remove(root, num);
-        if (root.keys.isEmpty() && !root.isLeaf()) {
+        if (!root.isLeaf() && root.keys.isEmpty()) {
             root = root.children.get(0);
         }
         return removed;
@@ -94,43 +98,92 @@ public class BTree implements TreeStructure {
                 node.keys.remove(idx);
                 node.timestamps.remove(idx);
                 return true;
-            }
-            
-            Node predecessorChild = node.children.get(idx);
-            if (predecessorChild.keys.size() >= (ORDER/2)) {
-                Integer predecessor = getMax(predecessorChild);
-                Long timestamp = get(predecessor);
-                node.keys.set(idx, predecessor);
-                node.timestamps.set(idx, timestamp);
-                return remove(predecessorChild, predecessor);
             } else {
-                Node successorChild = node.children.get(idx+1);
-                if (successorChild.keys.size() >= (ORDER/2)) {
-                    Integer successor = getMin(successorChild);
-                    Long timestamp = get(successor);
-                    node.keys.set(idx, successor);
-                    node.timestamps.set(idx, timestamp);
-                    return remove(successorChild, successor);
-                } else {
-                    mergeNodes(node, idx);
-                    return remove(predecessorChild, num);
+                return removeFromInternal(node, idx);
+            }
+        } else {
+            idx = -idx - 1;
+            if (node.isLeaf()) return false;
+            
+            if (node.children.get(idx).keys.size() < (ORDER/2)) {
+                fillChild(node, idx);
+                if (node.keys.size() < idx + 1) {
+                    idx = node.keys.size() - 1;
                 }
             }
+            
+            return remove(node.children.get(idx), num);
         }
+    }
+
+    private boolean removeFromInternal(Node node, int idx) {
+        Node leftChild = node.children.get(idx);
+        if (leftChild.keys.size() >= (ORDER/2)) {
+            Integer pred = getMax(leftChild);
+            Long timestamp = get(pred);
+            node.keys.set(idx, pred);
+            node.timestamps.set(idx, timestamp);
+            return remove(leftChild, pred);
+        } else {
+            Node rightChild = node.children.get(idx+1);
+            if (rightChild.keys.size() >= (ORDER/2)) {
+                Integer succ = getMin(rightChild);
+                Long timestamp = get(succ);
+                node.keys.set(idx, succ);
+                node.timestamps.set(idx, timestamp);
+                return remove(rightChild, succ);
+            } else {
+                mergeNodes(node, idx);
+                return remove(leftChild, node.keys.get(idx));
+            }
+        }
+    }
+
+    private void fillChild(Node parent, int idx) {
+        if (idx > 0 && parent.children.get(idx-1).keys.size() >= (ORDER/2)) {
+            borrowFromLeft(parent, idx);
+        } 
+        else if (idx < parent.children.size()-1 && 
+                 parent.children.get(idx+1).keys.size() >= (ORDER/2)) {
+            borrowFromRight(parent, idx);
+        }
+        else {
+            if (idx > 0) {
+                mergeNodes(parent, idx-1);
+            } else {
+                mergeNodes(parent, idx);
+            }
+        }
+    }
+
+    private void borrowFromLeft(Node parent, int idx) {
+        Node child = parent.children.get(idx);
+        Node sibling = parent.children.get(idx-1);
         
-        if (node.isLeaf()) return false;
-        idx = -idx - 1;
-        return remove(node.children.get(idx), num);
+        child.keys.add(0, parent.keys.get(idx-1));
+        child.timestamps.add(0, parent.timestamps.get(idx-1));
+        
+        parent.keys.set(idx-1, sibling.keys.remove(sibling.keys.size()-1));
+        parent.timestamps.set(idx-1, sibling.timestamps.remove(sibling.timestamps.size()-1));
+        
+        if (!child.isLeaf()) {
+            child.children.add(0, sibling.children.remove(sibling.children.size()-1));
+        }
     }
 
-    private Integer getMin(Node node) {
-        while (!node.isLeaf()) node = node.children.get(0);
-        return node.keys.get(0);
-    }
-
-    private Integer getMax(Node node) {
-        while (!node.isLeaf()) node = node.children.get(node.children.size() - 1);
-        return node.keys.get(node.keys.size() - 1);
+    private void borrowFromRight(Node parent, int idx) {
+        Node child = parent.children.get(idx);
+        Node sibling = parent.children.get(idx+1);
+        
+        child.keys.add(parent.keys.get(idx));
+        child.timestamps.add(parent.timestamps.get(idx));
+        
+        parent.keys.set(idx, sibling.keys.remove(0));
+        parent.timestamps.set(idx, sibling.timestamps.remove(0));
+        
+        if (!child.isLeaf()) {
+            child.children.add(sibling.children.remove(0));
+        }
     }
 
     private void mergeNodes(Node parent, int idx) {
@@ -139,6 +192,7 @@ public class BTree implements TreeStructure {
         
         left.keys.add(parent.keys.get(idx));
         left.timestamps.add(parent.timestamps.get(idx));
+        
         left.keys.addAll(right.keys);
         left.timestamps.addAll(right.timestamps);
         
@@ -149,6 +203,16 @@ public class BTree implements TreeStructure {
         parent.keys.remove(idx);
         parent.timestamps.remove(idx);
         parent.children.remove(idx+1);
+    }
+
+    private Integer getMin(Node node) {
+        while (!node.isLeaf()) node = node.children.get(0);
+        return node.keys.get(0);
+    }
+
+    private Integer getMax(Node node) {
+        while (!node.isLeaf()) node = node.children.get(node.children.size() - 1);
+        return node.keys.get(node.keys.size() - 1);
     }
 
     @Override
